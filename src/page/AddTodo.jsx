@@ -17,7 +17,9 @@ const AddTodo = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    completed: "",
+    dueDate: "",
+    status: "",
+    category: "",
   });
   const userId = localStorage.getItem("userId");
 
@@ -33,9 +35,7 @@ const AddTodo = () => {
   useEffect(() => {
     if (editData) {
       setFormData({
-        title: editData.title,
-        description: editData.description,
-        completed: editData.completed,
+        ...editData
       });
     }
     // console.log(editData);
@@ -56,23 +56,25 @@ const AddTodo = () => {
         // Edit mode
         await updateTodo({
           id: editData.id,
-          title: formData.title,
-          description: formData.description,
-          completed: formData.completed,
+          ...formData,
         }).unwrap();
         toast.success("Todo updated successfully!");
       } else {
         // Add mode
         await addTodo({
-          title: formData.title,
-          description: formData.description,
-          completed: formData.completed,
+          ...formData,
         }).unwrap();
         toast.success("Added your Todo successfully!");
       }
-      setFormData({ title: "", description: "", completed: "" });
+      setFormData({
+        title: "",
+        description: "",
+        dueDate: "",
+        status: "Pending",
+        category: "",
+      });
 
-      navigate("/todo");
+      // navigate("/todo");
     } catch (error) {
       console.error("Failed to add Todo:", error);
     }
@@ -86,9 +88,11 @@ const AddTodo = () => {
       </p>
 
       {!userId ? (
-        <p className="text-red-500 font-semibold text-center">please loging frist to add your todo !</p>
+        <p className="text-red-500 font-semibold text-center">
+          please loging frist to add your todo !
+        </p>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 max-w-sm ">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-7 max-w-sm ">
           <TextField
             label="Title"
             name="title"
@@ -109,23 +113,44 @@ const AddTodo = () => {
             value={formData.description || ""}
             onChange={handleChange}
             multiline
-            rows={6}
+            rows={4}
             required
             sx={commonStyle}
           />
           <TextField
-            label="Completed"
-            name="completed"
-            variant="outlined"
+            label="Due Date"
+            name="dueDate"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            fullWidth
+            value={formData.dueDate}
+            onChange={handleChange}
+            sx={commonStyle}
+          />
+
+          <TextField
+            label="Status"
+            name="status"
             select
             fullWidth
-            value={formData.completed}
+            value={formData.status}
             onChange={handleChange}
             sx={commonStyle}
           >
-            <MenuItem value={false}>False</MenuItem>
-            <MenuItem value={true}>True</MenuItem>
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="In Progress">In Progress</MenuItem>
+            <MenuItem value="Done">Done</MenuItem>
           </TextField>
+
+          <TextField
+            label="Category"
+            name="category"
+            type="text"
+            fullWidth
+            value={formData.category}
+            onChange={handleChange}
+            sx={commonStyle}
+          />
 
           <div>
             <Button

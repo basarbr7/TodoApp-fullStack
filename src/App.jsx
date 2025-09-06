@@ -12,6 +12,7 @@ import TodoDashbord from './page/TodoDashbord'
 import TodoList from './page/TodoList'
 import AddTodo from './page/AddTodo'
 import TodoDetails from './page/TodoDetails'
+import ProfilePage from './page/ProfilePage'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='add' element={<AddTodo/>} />
           <Route path='details/:id' element={<TodoDetails/>} />
         </Route>
+        <Route path='/profile' element={<ProfilePage/>} />
         {/* <Route path=''/> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />}/>

@@ -9,8 +9,9 @@ const todoApi = createApi({
       // console.log("TOKEN IN HEADER:", token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`)
-        headers.set('Content-Type', 'application/json');
-        headers.set('Accept', 'application/json');
+        // headers.set('Content-Type', 'application/json');
+        // headers.set('Accept', 'application/json');
+        // headers.set('Content-Type', 'multipart/form-data')
       };
       return headers;
     }
@@ -29,6 +30,21 @@ const todoApi = createApi({
         method: 'POST',
         body: userData,
       }),
+    }),
+    userById: builder.query({
+      query: (id)=>({
+        url: `/api/users/${id}`,
+        method: 'GET'
+      }),
+       providesTags: (result, error, id) => [{ type: "User", id }],
+    }),
+    updateUser: builder.mutation({
+      query: ({id, formData})=>({
+        url: `/api/users/${id}`,
+        method: 'PATCH',
+        body: formData
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: "User", id }],
     }),
     getTodosByUser: builder.query({
       query: (userId)=> ({
@@ -69,5 +85,5 @@ const todoApi = createApi({
   })
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation, useAddTodoMutation, useGetTodosByUserQuery, useGetSingleTodoQuery, useUpdateTodoMutation, useDeleteTodoMutation } = todoApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useUpdateUserMutation, useUserByIdQuery, useAddTodoMutation, useGetTodosByUserQuery, useGetSingleTodoQuery, useUpdateTodoMutation, useDeleteTodoMutation } = todoApi;
 export default todoApi;
