@@ -81,7 +81,11 @@ const Navbar = () => {
           {/* Hamburger for mobile */}
           <div className="md:hidden">
             <button onClick={toggleMenu}>
-              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {menuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
 
@@ -167,63 +171,66 @@ const Navbar = () => {
 
           {/* mobile offcanvas menu */}
           <ul
-            className={`md:hidden fixed top-[64px] left-0 w-64 h-screen bg-slate-900 z-50 transition-transform duration-300 p-4 space-y-2 overflow-y-auto
-              ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+            className={`md:hidden fixed top-[64px] left-0 w-64 h-screen bg-slate-900 z-50 transition-transform duration-300 p-4 flex flex-col ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
           >
-            {menuItems.map((item, index) => (
-              <li key={index}>
-                <NavLink
-                  to={item.path}
-                  onClick={closeMenu}
-                  className="block px-4 py-2 text-white hover:bg-gray-700 rounded"
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
+            {/*  menu items */}
+            <div className="flex-1 space-y-2 overflow-y-auto">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <NavLink
+                    to={item.path}
+                    onClick={closeMenu}
+                    className="block px-4 py-2 text-white hover:bg-gray-700 rounded"
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+            </div>
 
-            <div className="border-t mb-5 border-gray-600 my-2"></div>
+            {/*  login/profile section */}
+            <div className=" mb-16">
+              <div className="border-t mb-2 border-gray-600 my-2"></div>
 
-            {/* mobile login/profile section */}
-            {isLoggedIn ? (
-              <div className="px-4 py-2 text-white">
-                
+              {isLoggedIn ? (
+                <div className="px-4 py-2 text-white">
+                  <button
+                    onClick={() => {
+                      navigate("/profile");
+                      setMenuOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                  >
+                    <CircleUser size={18} /> My Account
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate("#");
+                      setMenuOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                  >
+                    <Settings size={18} /> Settings
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-3 py-2 hover:bg-red-600 rounded mt-2"
+                  >
+                    <LogOut size={18} /> Logout
+                  </button>
+                </div>
+              ) : (
                 <button
                   onClick={() => {
-                    navigate("/profile");
+                    navigate("/login");
                     setMenuOpen(false);
                   }}
-                  className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                  className="w-full bg-blue-600 text-white px-4 py-2 rounded mt-2"
                 >
-                  <CircleUser size={18} /> My Account
+                  Login
                 </button>
-                <button
-                  onClick={() => {
-                    navigate("#");
-                    setMenuOpen(false);
-                  }}
-                  className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
-                >
-                  <Settings size={18} /> Settings
-                </button>
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-3 py-2 hover:bg-red-600 rounded mt-2"
-                >
-                  <LogOut size={18} /> Logout
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => {
-                  navigate("/login");
-                  setMenuOpen(false);
-                }}
-                className="w-full bg-blue-600 text-white px-4 py-2 rounded mt-2"
-              >
-                Login
-              </button>
-            )}
+              )}
+            </div>
           </ul>
         </div>
       </Container>

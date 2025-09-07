@@ -48,7 +48,7 @@ const ProfilePage = () => {
         >
           {/* profile and name section */}
           <div className="flex flex-col items-center justify-center space-y-3">
-            <div className="relative">
+            <div className="relative bg-gray-200 rounded-full ">
               {/* profile image */}
               <div className="h-40 w-40 rounded-full overflow-hidden flex items-center justify-center">
                 <img
@@ -85,15 +85,15 @@ const ProfilePage = () => {
               />
             </div>
 
-            <div className="w-full text-center mt-5 space-y-2 relative">
-              <button className="absolute -top-10 right-0 z-30 flex items-center gap-2 bg-gray-900 text-white p-2 rounded-md">
+            <div className="w-full text-center mt-12 space-y-2 relative">
+              <button className="absolute -top-12 md:-top-10 -right-5 md:right-0 z-30 flex items-center gap-2 bg-gray-900 text-white p-2 rounded-md text-sm md:text-lg">
                 <Pencil size={20} />
                 Edit
               </button>
 
               <p className="text-3xl font-semibold">{data.name}</p>
               <p className="text-lg">{data.title || "Your title"}</p>
-              <p>{data.bio}</p>
+              <p>{data.bio} </p>
             </div>
           </div>
 
