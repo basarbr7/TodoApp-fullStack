@@ -189,7 +189,7 @@ const Navbar = () => {
             </div>
 
             {/*  login/profile section */}
-            <div className=" mb-16">
+            <div className=" mt-auto">
               <div className="border-t mb-2 border-gray-600 my-2"></div>
 
               {isLoggedIn ? (
