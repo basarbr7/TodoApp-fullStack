@@ -171,10 +171,10 @@ const Navbar = () => {
 
           {/* mobile offcanvas menu */}
           <ul
-            className={`md:hidden fixed top-[64px] left-0 w-64 h-screen bg-slate-900 z-50 transition-transform duration-300 p-4 flex flex-col ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+            className={`md:hidden fixed top-[64px] left-0 w-64 h-screen bg-slate-900 z-50 transition-transform duration-300 p-4  ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
           >
             {/*  menu items */}
-            <div className="flex-1 space-y-2 overflow-y-auto">
+            <div className="space-y-2 overflow-y-auto">
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <NavLink
@@ -189,7 +189,8 @@ const Navbar = () => {
             </div>
 
             {/*  login/profile section */}
-            <div className=" mt-auto pb-16 mb-10 ">
+        
+            <div className="mt-24">
               <div className="border-t mb-2 border-gray-600 my-2"></div>
 
               {isLoggedIn ? (
@@ -231,6 +232,7 @@ const Navbar = () => {
                 </button>
               )}
             </div>
+            
           </ul>
         </div>
       </Container>
