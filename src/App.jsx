@@ -13,27 +13,31 @@ import TodoList from './page/TodoList'
 import AddTodo from './page/AddTodo'
 import TodoDetails from './page/TodoDetails'
 import ProfilePage from './page/ProfilePage'
+import ScrollToTop from './component/ScrollToTop'
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home/>}/>
-        <Route path='/todo' element={<TodoDashbord/>}>
-          <Route index element={<TodoList/>} />
-          <Route path='add' element={<AddTodo/>} />
-          <Route path='details/:id' element={<TodoDetails/>} />
+    <>
+      <ScrollToTop/>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<Home/>}/>
+          <Route path='/todo' element={<TodoDashbord/>}>
+            <Route index element={<TodoList/>} />
+            <Route path='add' element={<AddTodo/>} />
+            <Route path='details/:id' element={<TodoDetails/>} />
+          </Route>
+          <Route path='/profile' element={<ProfilePage/>} />
+          {/* <Route path=''/> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />}/>
+          {/* <Route path='/pill' element={<Myphill />} />
+          <Route path='/phill' element={<PillSplitter/>} />
+          <Route path='/ex' element={<Ex/>} />
+          <Route path="/window" element={<WindowManager />} /> */}
         </Route>
-        <Route path='/profile' element={<ProfilePage/>} />
-        {/* <Route path=''/> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />}/>
-        {/* <Route path='/pill' element={<Myphill />} />
-        <Route path='/phill' element={<PillSplitter/>} />
-        <Route path='/ex' element={<Ex/>} />
-        <Route path="/window" element={<WindowManager />} /> */}
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   )
 }
 

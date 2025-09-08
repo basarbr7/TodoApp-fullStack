@@ -170,11 +170,11 @@ const Navbar = () => {
           )}
 
           {/* mobile offcanvas menu */}
-          <ul
+          <div
             className={`md:hidden fixed top-[64px] left-0 w-64 h-screen bg-slate-900 z-50 transition-transform duration-300 p-4  ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
           >
             {/*  menu items */}
-            <div className="space-y-2 overflow-y-auto">
+            <ul className="space-y-2">
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <NavLink
@@ -186,7 +186,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               ))}
-            </div>
+            </ul>
 
             {/*  login/profile section */}
         
@@ -233,7 +233,7 @@ const Navbar = () => {
               )}
             </div>
             
-          </ul>
+          </div>
         </div>
       </Container>
     </nav>
