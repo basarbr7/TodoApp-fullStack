@@ -23,7 +23,7 @@ const AddTodo = () => {
   });
   const userId = localStorage.getItem("userId");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [addTodo, { isLoading: adding }] = useAddTodoMutation();
   const [updateTodo, { isLoading: updating }] = useUpdateTodoMutation();

@@ -38,7 +38,7 @@ const todoApi = createApi({
       }),
        providesTags: (result, error, id) => [{ type: "User", id }],
     }),
-    updateUser: builder.mutation({
+    updateUserData: builder.mutation({
       query: ({id, formData})=>({
         url: `/api/users/${id}`,
         method: 'PATCH',
@@ -85,5 +85,5 @@ const todoApi = createApi({
   })
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation, useUpdateUserMutation, useUserByIdQuery, useAddTodoMutation, useGetTodosByUserQuery, useGetSingleTodoQuery, useUpdateTodoMutation, useDeleteTodoMutation } = todoApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useUpdateUserDataMutation, useUserByIdQuery, useAddTodoMutation, useGetTodosByUserQuery, useGetSingleTodoQuery, useUpdateTodoMutation, useDeleteTodoMutation } = todoApi;
 export default todoApi;

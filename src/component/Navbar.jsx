@@ -113,7 +113,7 @@ const Navbar = () => {
                   className="rounded-full w-10 h-10 bg-gray-700 cursor-pointer flex items-center justify-center overflow-hidden"
                 >
                   <img
-                    src={`https://node-express-mongo-ce73.onrender.com/uploads/${data?.image}`}
+                    src={data?.image ? (`https://node-express-mongo-ce73.onrender.com/uploads/${data.image}`) : " "}
                     alt=""
                     className="w-full h-full object-cover"
                   />
