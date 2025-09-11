@@ -113,7 +113,11 @@ const Navbar = () => {
                   className="rounded-full w-10 h-10 bg-gray-700 cursor-pointer flex items-center justify-center overflow-hidden"
                 >
                   <img
-                    src={data?.image ? (`https://node-express-mongo-ce73.onrender.com/uploads/${data.image}`) : " "}
+                    src={
+                      data?.image
+                        ? `https://node-express-mongo-ce73.onrender.com/uploads/${data.image}`
+                        : " "
+                    }
                     alt=""
                     className="w-full h-full object-cover"
                   />
@@ -138,7 +142,13 @@ const Navbar = () => {
                       >
                         <CircleUser size={18} /> My Account
                       </button>
-                      <button className="px-4 py-2 hover:bg-gray-200 transition-colors flex items-center gap-3">
+                      <button
+                        onClick={() => {
+                          navigate("/setting");
+                          setOpenProfile(false);
+                        }}
+                        className="px-4 py-2 hover:bg-gray-200 transition-colors flex items-center gap-3"
+                      >
                         <Settings size={18} /> Settings
                       </button>
                       <button
@@ -162,78 +172,88 @@ const Navbar = () => {
           </div>
 
           {/* mobile menu overlay */}
-          {menuOpen && (
-            <div
-              onClick={() => setMenuOpen(false)}
-              className="bg-black/75 fixed top-[64px] left-0 w-full h-[calc(100vh-64px)] z-40"
-            />
-          )}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={closeMenu}
+                className="fixed inset-0 bg-black/60 z-40 md:hidden"
+              />
+            )}
+          </AnimatePresence>
 
           {/* mobile offcanvas menu */}
-          <div
-            className={`md:hidden fixed top-[64px] left-0 w-64 h-screen bg-slate-900 z-50 transition-transform duration-300 p-4  ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
-          >
-            {/*  menu items */}
-            <ul className="space-y-2">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <NavLink
-                    to={item.path}
-                    onClick={closeMenu}
-                    className="block px-4 py-2 text-white hover:bg-gray-700 rounded"
-                  >
-                    {item.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="fixed top-0 left-0 w-64 h-full bg-slate-900 z-50 p-4 md:hidden flex flex-col"
+              >
+                {/* menu items */}
+                <ul className="space-y-2 flex-1">
+                  {menuItems.map((item, index) => (
+                    <li key={index}>
+                      <NavLink
+                        to={item.path}
+                        onClick={closeMenu}
+                        className="block px-4 py-2 text-white hover:bg-gray-700 rounded"
+                      >
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
 
-            {/*  login/profile section */}
-        
-            <div className="mt-50">
-              <div className="border-t mb-2 border-gray-600 my-2"></div>
-
-              {isLoggedIn ? (
-                <div className="px-4 py-2 text-white">
-                  <button
-                    onClick={() => {
-                      navigate("/profile");
-                      setMenuOpen(false);
-                    }}
-                    className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
-                  >
-                    <CircleUser size={18} /> My Account
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate("#");
-                      setMenuOpen(false);
-                    }}
-                    className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
-                  >
-                    <Settings size={18} /> Settings
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-3 py-2 hover:bg-red-600 rounded mt-2"
-                  >
-                    <LogOut size={18} /> Logout
-                  </button>
+                {/* login/profile section */}
+                <div className="border-t border-gray-600 pt-4">
+                  {isLoggedIn ? (
+                    <div className="text-white">
+                      <button
+                        onClick={() => {
+                          navigate("/profile");
+                          closeMenu();
+                        }}
+                        className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                      >
+                        <CircleUser size={18} /> My Account
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigate("/setting");
+                          closeMenu();
+                        }}
+                        className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                      >
+                        <Settings size={18} /> Settings
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 py-2 hover:bg-red-600 rounded mt-2"
+                      >
+                        <LogOut size={18} /> Logout
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        navigate("/login");
+                        closeMenu();
+                      }}
+                      className="w-full bg-blue-600 text-white px-4 py-2 rounded mt-2"
+                    >
+                      Login
+                    </button>
+                  )}
                 </div>
-              ) : (
-                <button
-                  onClick={() => {
-                    navigate("/login");
-                    setMenuOpen(false);
-                  }}
-                  className="w-full bg-blue-600 text-white px-4 py-2 rounded mt-2"
-                >
-                  Login
-                </button>
-              )}
-            </div>
-            
-          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </Container>
     </nav>

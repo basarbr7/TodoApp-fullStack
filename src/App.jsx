@@ -14,6 +14,7 @@ import AddTodo from './page/AddTodo'
 import TodoDetails from './page/TodoDetails'
 import ProfilePage from './page/ProfilePage'
 import ScrollToTop from './component/ScrollToTop'
+import ErrorPage from './page/Error'
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path='/phill' element={<PillSplitter/>} />
           <Route path='/ex' element={<Ex/>} />
           <Route path="/window" element={<WindowManager />} /> */}
+         <Route path="*" element={<ErrorPage status={404} message="Page not found" />} />
         </Route>
       </Routes>
     </>
