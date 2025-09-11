@@ -20,10 +20,6 @@ const TodoDashbord = () => {
           <AlignJustify className='w-4 h-4'/> Menu
         </button>
 
-          {/* 
-          { activeTab==="todolist" && <TodoList/>}
-          { activeTab==="addtodo" && <AddTodo/>} */}
-
           <Outlet/>
         
       </div>

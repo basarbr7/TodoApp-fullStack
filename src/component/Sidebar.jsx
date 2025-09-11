@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <nav className="flex flex-col gap-4">
           {
             menuItems.map((item, index)=>(
-              <NavLink to={item.href} end={item.href===""} key={index} className={({isActive})=>`flex items-center gap-2 px-4 py-2 rounded cursor-pointer transition ${isActive ? 'bg-gray-700': 'hover:bg-gray-500'} `}>
+              <NavLink onClick={() => setIsOpen(false)} to={item.href} end={item.href===""} key={index} className={({isActive})=>`flex items-center gap-2 px-4 py-2 rounded cursor-pointer transition ${isActive ? 'bg-gray-700': 'hover:bg-gray-500'} `}>
                 <item.icon size={24}/>{item.name}
               </NavLink>
             ))
