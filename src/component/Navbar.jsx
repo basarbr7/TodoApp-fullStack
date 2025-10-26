@@ -5,12 +5,7 @@ import { CircleUser, LogOut, Menu, Settings, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserByIdQuery } from "../redux/rtkApi";
 
-const menuItems = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
-  { name: "Todo", path: "/todo" },
-];
+
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -24,6 +19,12 @@ const Navbar = () => {
   const userId = localStorage.getItem("userId");
 
   const { data } = useUserByIdQuery(userId);
+
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "My Tasks", path: "/todo" },
+    ...(isLoggedIn ? [{ name: "Profile", path: "/profile" }] : []),
+  ];
 
   useEffect(() => {
     const checkLogin = () => {
@@ -73,7 +74,7 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <nav className="bg-amber-300">
+    <nav className="bg-white/80  shadow-sm">
       <Container>
         <div className="flex justify-between items-center py-4">
           <div className="text-2xl font-bold">ToDo App</div>
@@ -82,7 +83,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button onClick={toggleMenu}>
               {menuOpen ? (
-                <X className="w-6 h-6" />
+                ""
               ) : (
                 <Menu className="w-6 h-6" />
               )}
@@ -110,7 +111,7 @@ const Navbar = () => {
                 {/* avatar */}
                 <div
                   onClick={() => setOpenProfile(!openProfile)}
-                  className="rounded-full w-10 h-10 bg-gray-700 cursor-pointer flex items-center justify-center overflow-hidden"
+                  className=" w-10 h-10  bg-black rounded-full cursor-pointer  flex items-center justify-center overflow-hidden "
                 >
                   <img
                     src={
@@ -119,7 +120,7 @@ const Navbar = () => {
                         : " "
                     }
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover "
                   />
                 </div>
 
@@ -193,16 +194,24 @@ const Navbar = () => {
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="fixed top-0 left-0 w-64 h-full bg-slate-900 z-50 p-4 md:hidden flex flex-col"
+                className="fixed top-0 left-0 w-[70%] h-full bg-slate-900 z-50 md:hidden flex flex-col "
               >
+                <div onClick={()=>setMenuOpen(false)}>
+                  <X  className="w-6 h-6 absolute top-4 -right-[30%] text-white" />
+                </div>
+
+                <div className="bg-white py-5 w-full">
+                  <div className="px-10">TodoApp</div>
+                </div>
+
                 {/* menu items */}
-                <ul className="space-y-2 flex-1">
+                <ul className="space-y-4 flex-1 mx-10 mt-5 ">
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <NavLink
                         to={item.path}
                         onClick={closeMenu}
-                        className="block px-4 py-2 text-white hover:bg-gray-700 rounded"
+                        className=" text-white hover:bg-gray-700 rounded"
                       >
                         {item.name}
                       </NavLink>
@@ -211,7 +220,7 @@ const Navbar = () => {
                 </ul>
 
                 {/* login/profile section */}
-                <div className="border-t border-gray-600 pt-4">
+                <div className="border-t border-gray-600 pt-4 mx-10 ">
                   {isLoggedIn ? (
                     <div className="text-white">
                       <button
@@ -219,7 +228,7 @@ const Navbar = () => {
                           navigate("/profile");
                           closeMenu();
                         }}
-                        className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                        className="flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
                       >
                         <CircleUser size={18} /> My Account
                       </button>
@@ -228,13 +237,13 @@ const Navbar = () => {
                           navigate("/setting");
                           closeMenu();
                         }}
-                        className="w-full flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
+                        className=" flex items-center gap-3 py-2 hover:bg-gray-700 rounded"
                       >
                         <Settings size={18} /> Settings
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-3 py-2 hover:bg-red-600 rounded mt-2"
+                        className="flex items-center gap-3 py-2 hover:bg-red-600 rounded mt-2"
                       >
                         <LogOut size={18} /> Logout
                       </button>

@@ -15,6 +15,7 @@ import TodoDetails from './page/TodoDetails'
 import ProfilePage from './page/ProfilePage'
 import ScrollToTop from './component/ScrollToTop'
 import ErrorPage from './page/Error'
+import Hero from './page/Hero'
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
       <ScrollToTop/>
       <Routes>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={<Home/>}/>
+          <Route index element={<Hero/>}/>
           <Route path='/todo' element={<TodoDashbord/>}>
             <Route index element={<TodoList/>} />
             <Route path='add' element={<AddTodo/>} />

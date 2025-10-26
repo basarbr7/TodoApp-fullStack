@@ -16,7 +16,7 @@ function Modal({ children, onClose , className}) {
       <div className={`bg-white md:rounded-lg p-6 w-full h-full md:h-auto overflow-y-auto relative ${className}`}>
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl cursor-pointer"
+          className="absolute top-7 right-5 text-gray-100 hover:text-red-500 text-xl cursor-pointer"
         >
           ✕
         </button>

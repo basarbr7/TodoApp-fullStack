@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import todoApi, { useLoginUserMutation } from '../redux/rtkApi'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { Eye, EyeOff } from 'lucide-react'
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
+  const [showPassword, setShowPassword] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [loginUser, { error, isSuccess }] = useLoginUserMutation()
@@ -40,7 +42,13 @@ const Login = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-500 p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-500 p-4">
+      
+      <div className='bg-white p-5 mb-10 rounded-sm'>
+        <p>Email: demo@gmail.com</p>
+        <p>Password: 123456</p>
+      </div>
+
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6"
@@ -74,10 +82,10 @@ const Login = () => {
           />
         </div>
 
-        <div>
+        <div className='relative '>
           <label className="block mb-1 font-medium text-gray-700">Password</label>
           <input
-            type="password"
+             type={showPassword ? "text" : "password" }
             name='password'
             placeholder="Password"
             value={formData.password}
@@ -85,6 +93,9 @@ const Login = () => {
             required
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
+          <button type='button' onClick={()=>setShowPassword(!showPassword)} className='absolute top-10 right-3 '>
+            { showPassword ? <Eye size={20} /> : <EyeOff size={20} /> }
+          </button>
         </div>
 
         <button

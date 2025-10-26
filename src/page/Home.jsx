@@ -8,11 +8,11 @@ const Home = () => {
     skip: !userId,
   });
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log(data);
+  //   }
+  // }, [data]);
 
   useEffect(() => {
     const handler = () => {
